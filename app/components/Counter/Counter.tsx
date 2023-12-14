@@ -4,15 +4,15 @@
 import {ChangeEvent, useState} from "react";
 
 /* Instruments */
-import {useSelector, selectCount, useDispatch, incrementIfOddAsync} from "@/lib/redux";
+import {useSelector, selectCount, useDispatch, incrementIfOddAsync, selectAmount} from "@/lib/redux";
 import {counterSlice} from '@/lib/redux'
 import styles from "./counter.module.css";
 
 export const Counter = () => {
   const count = useSelector(selectCount);
+  const incrementAmount = useSelector(selectAmount);
   const dispatch = useDispatch();
-  const {increment, decrement, incrementByAmount} = counterSlice.actions;
-  const [incrementAmount, setIncrementAmount] = useState(0);
+  const {increment, decrement, incrementByAmount, changeAmount} = counterSlice.actions;
 
   return (
     <div>
@@ -44,7 +44,8 @@ export const Counter = () => {
             type={"number"}
             className={styles.textbox}
             aria-label="Set increment amount"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setIncrementAmount(Number(e.target.value))}
+            value={incrementAmount}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(changeAmount(Number(e.target.value)))}
         />
         <button
           className={styles.button}

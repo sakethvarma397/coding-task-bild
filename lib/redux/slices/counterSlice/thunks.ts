@@ -7,8 +7,8 @@ export const incrementIfOddAsync =
   (dispatch, getState) => {
       const currentCount = selectCount(getState());
       const {incrementByAmount} = counterSlice.actions;
-      // update only if currentValue is odd
-      if (currentCount%2 === 1) {
+      // update only if currentValue is odd. Negative odd numbers are accepted
+      if (Math.abs(currentCount%2) === 1) {
           dispatch(incrementByAmount(amount))
       }
   };
